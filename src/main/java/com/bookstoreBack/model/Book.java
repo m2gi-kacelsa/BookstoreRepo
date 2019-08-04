@@ -14,6 +14,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -25,18 +29,24 @@ public class Book {
     @Id  @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    @Column(length = 200)
+    @NotNull @Size(min = 1, max = 200)
     private String title;
     
-    @Column(length = 1000)
+    @Size(min = 1, max = 10000)
     private String description;
     
     @Column(name = "unit_cost")
+    @NotNull @Min(1)
     private float unitCost;
+    
+    @Column(length = 50)
+    @NotNull
+    @Size(min = 1, max = 50)
     private String isbn;
     
     @Column(name = "publication_date")
     @Temporal(TemporalType.DATE)
+    @Past
     private Date publicationDate;
     
     @Column(name = "nb_of_pages")
@@ -45,6 +55,10 @@ public class Book {
     @Column(name = "image_url")
     private String imageURL;
     private Language language;
+
+    public Book(String book, String description, float f, String bn, Date date, int i, String wwwpicture, Language language) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
     public String getTitle() {
         return title;
